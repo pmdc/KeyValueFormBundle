@@ -2,7 +2,7 @@
 
 namespace Burgov\Bundle\KeyValueFormBundle;
 
-class KeyValueContainer implements \ArrayAccess
+class KeyValueContainer implements \ArrayAccess, \Countable
 {
     private $data;
 
@@ -34,6 +34,11 @@ class KeyValueContainer implements \ArrayAccess
     public function offsetUnset($offset)
     {
         unset($this->data[$offset]);
+    }
+
+    public function count()
+    {
+        return count($this->data);
     }
 }
  
