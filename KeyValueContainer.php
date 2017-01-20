@@ -26,7 +26,7 @@ class KeyValueContainer implements \ArrayAccess, \Countable, \Serializable
     {
         $this->data = [];
         $data = explode(';', $serialized);
-        foreach ($serialized as $v){
+        foreach ($data as $v){
             $k = explode('=', $v);
 
                 $this->data[$k[0]] = count($k) === 2 ? $k[1] : '';
