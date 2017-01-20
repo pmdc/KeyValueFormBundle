@@ -2,9 +2,36 @@
 
 namespace Burgov\Bundle\KeyValueFormBundle;
 
-class KeyValueContainer implements \ArrayAccess, \Countable
+class KeyValueContainer implements \ArrayAccess, \Countable, \Serializable
 {
     private $data;
+
+    /**
+     * @inheritDoc
+     */
+    public function serialize()
+    {
+        $data = $this->toArray();
+        $out = '';
+        foreach ($data as $k => $v){
+            $out .= $k . '=' . $v . ';';
+        }
+        return $out;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function unserialize($serialized)
+    {
+        $this->data = [];
+        $data = explode(';', $serialized);
+        foreach ($serialized as $v){
+            $k = explode('=', $v);
+
+                $this->data[$k[0]] = count($k) === 2 ? $k[1] : '';
+        }
+    }
 
     public function __construct(array $data = array())
     {
